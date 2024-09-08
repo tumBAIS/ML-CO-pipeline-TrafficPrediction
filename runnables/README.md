@@ -29,7 +29,7 @@ This directory contains all scripts to run the code.
   - **run_evaluation.sh**: evaluates a trained COAML pipeline. Define the parameters for evaluation in the script.
 
 - Scripts to run code on the cluster
-  - master.sh: Master file to bash on the cluster. 1) Define the parameters, e.g., outcomment the experiment and define the hyperparameters. 2) Outcomment if you want to train or to evaluate.
-  - run_evaluation.sh: Script called from master.sh -> evaluating the COAML pipeline
-  - run_training.sh: Script called from master.sh -> train the COAML pipeline
-  - srun_test.sh: Testing script for testing in interactive model
+  - **master.sh:** Master file to bash on the cluster. 1) Define the parameters, e.g., outcomment the experiment and define the hyperparameters. 2) Outcomment if you want to train or to evaluate.
+  - **run_evaluation.sh:** Script called from master.sh -> evaluating the COAML pipeline
+  - **run_training.sh:** Script called from master.sh -> train the COAML pipeline
+  - **srun_test.sh:** Testing script for testing in interactive model

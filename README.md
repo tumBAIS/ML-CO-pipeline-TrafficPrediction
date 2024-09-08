@@ -35,9 +35,10 @@ bash runnables/scenario_name.sh
 
 ## 4. Train and evaluate the COAML pipeline
 1. Recommendation: Run the training on a cluster using `slurm`.
-2. On the cluster, define the parameters in the `runnables/cluster/master.sh` file.
-3. On the cluster, in `runnables/cluster/master.sh` uncomment the training or evaluation, depending on what you want to run.
-4. On the cluster, run 
+2. We provide pre-caculated instances in `surrogate/data`. Please unpack them, if you did not run step *3. Create scenarios*
+3. On the cluster, define the parameters in the `runnables/cluster/master.sh` file.
+4. On the cluster, in `runnables/cluster/master.sh` uncomment the training or evaluation, depending on what you want to run.
+5. On the cluster, run 
 ```bash 
 bash runnables/cluster/master.sh
 ```
