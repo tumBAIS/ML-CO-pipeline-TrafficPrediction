@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# salloc --ntasks=1 --cpus-per-task=2 --partition=cm2_inter 
+# salloc --ntasks=1 --cpus-per-task=2 --partition=... 
 
 # module load python/3.8.11-base
 # module load gurobi/10.00

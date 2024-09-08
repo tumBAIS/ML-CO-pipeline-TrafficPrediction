@@ -3,11 +3,8 @@
 #SBATCH -o ./%x.%j.%N.out
 #SBATCH -D ./
 #SBATCH --get-user-env
-#SBATCH --exclude=i23r06c03s02,i23r06c02s05,i23r06c01s06,i23r05c01s05
-#SBATCH --clusters=serial
-#SBATCH --partition=serial_std
-#SBATCH --mail-type=end
-#SBATCH --mail-user=kai.jungel@tum.de
+#SBATCH --clusters=...
+#SBATCH --partition=...
 #SBATCH --export=NONE
 #SBATCH --time=20:00:00
 
