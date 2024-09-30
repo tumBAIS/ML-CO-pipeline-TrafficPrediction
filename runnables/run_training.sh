@@ -12,8 +12,6 @@ NUM_TRAINING_EPOCHS=2
 PERTURBATIONS="additive"
 MODELS="NN"
 LEARNINGS="structured supervised"
-#TIME_EXPANDED_SOLUTIONS="0"
-#TRIP_INDIVIDUAL_SOLUTIONS="0"
 TIME_VARIANT_THETAS="0"
 TRIP_INDIVIDUAL_THETAS="0"
 OPTIMIZERS="addedshortestpaths multicommodityflow_timeexpanded"
@@ -47,10 +45,6 @@ do
 		do
 			for PERTURBATION in ${PERTURBATIONS}
 			do
-				#for TIME_EXPANDED_SOLUTION in ${TIME_EXPANDED_SOLUTIONS}
-				#do
-				#	for TRIP_INDIVIDUAL_SOLUTION in ${TRIP_INDIVIDUAL_SOLUTIONS}
-				#	do
 				for TIME_VARIANT_THETA in ${TIME_VARIANT_THETAS}
 				do
 					for TRIP_INDIVIDUAL_THETA in ${TRIP_INDIVIDUAL_THETAS}
@@ -61,8 +55,6 @@ do
 						done
 					done
 				done
-				#	done
-				#done
 			done
 		done
 	done

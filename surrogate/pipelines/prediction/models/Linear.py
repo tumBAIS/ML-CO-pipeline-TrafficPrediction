@@ -49,7 +49,6 @@ class Linear(NN):
             return (latency_intercept, latency_x)
         else:
             y_hat = np.squeeze(np.matmul(X, self.get_w_values()))
-            #y_hat[y_hat > 0] = np.random.uniform(low=-0.000001, high=0, size=sum(y_hat > 0))
             return y_hat
 
     def batch_dataset(self, instances):
@@ -72,8 +71,6 @@ class Linear(NN):
             gradient_offline = (X[0] * y.reshape((len(y), 1))).sum(axis=0)
             gradient_online_mean = (X[0] * scaled_y_hat_mean.reshape((len(y), 1))).sum(axis=0)
             gradient = gradient_online_mean - gradient_offline
-            #self.set_w_values(self.get_w_values() - 0.0001 * gradient.reshape((len(gradient), 1)))
-            #self.set_w_values(self.get_w_values() - 0.0001 * gradient)
             self.set_w_values(self.get_w_values() - self.args.learning_rate * gradient)
 
     def sup_optimize(self, instances, callback):

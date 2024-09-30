@@ -61,7 +61,6 @@ public class createScenarios_districtWorldArt {
         }
 
         Scenario sc = ScenarioUtils.createScenario(ConfigUtils.loadConfig("./scenarios/equil/config.xml"));
-        //Scenario sc = ScenarioUtils.createScenario(ConfigUtils.loadConfig("scenarios/berlin-v5.5-" + percentage_original + "pct/input/berlin-v5.5-" + percentage_original + "pct.config-local.xml"));
         Config conf = sc.getConfig();
 
         // CREATE CONFIG FILE

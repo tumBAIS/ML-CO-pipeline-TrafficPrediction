@@ -14,13 +14,11 @@ class Experiment:
     def __init__(self, simulation, simulator, time_variant_theta, y_ticks):
         self.simulation = simulation_to_name(simulation, simulator, time_variant_theta)
         self.y_ticks = y_ticks
-        self.get_best_categories = [("-Base", "-structured_co", "multicommodity"),  #("-Base", "-supervised_"),
+        self.get_best_categories = [("-Base", "-structured_co", "multicommodity"),
                                     ("-NN_", "-supervised_"), ("-GNN_", "-supervised_"),
-                                    ("-NN", "-structured_co", "multicommodity"), #("-GNN", "-structured_co", "multicommodity"),
+                                    ("-NN", "-structured_co", "multicommodity"),
                                     ("-NN", "-structured_co", "wardropequilibria"), ("-NN", "-structured_wardrop", "wardropequilibria"),
-                                    ("-NN", "-structured_co", "wardropequilibriaRegularized")]#,
-                                    #("-GNN", "-supervised_"), ("-GNN", "-structured_")]#,
-                                    #("-RandomForest", "-supervised_")]
+                                    ("-NN", "-structured_co", "wardropequilibriaRegularized")]
 
     def get_x_labels(self, args):
         ...
@@ -276,12 +274,6 @@ def generate_plot_learning_evolution(args_original, args, learning_evolution, su
     ax1.set_ylabel('Loss', color=color)
     ax1.plot(loss_evolution, color=color)
     ax1.tick_params(axis='y', labelcolor=color)
-    # MSE AXIS
-    #ax2 = ax1.twinx()
-    #color = 'tab:blue'
-    #ax2.set_ylabel('MSE', color=color)
-    #ax2.plot(mse_evolution, color=color)
-    #ax2.tick_params(axis='y', labelcolor=color)
     # MAE AXIS
     ax3 = ax1.twinx()
     color = 'tab:green'
@@ -478,16 +470,8 @@ def compare_performances(args_original, args_lists, result_directory, metric, na
                 plt.axvline(x=1.7799543951566403, label="best found median")
             if args_lists[0]["simulation"] == "smallWorlds_short":
                 plt.axvline(x=1.3643790849673203, label="best found median")
-        #plt.axvline(x=2.246361301369863, label="best found median")
-        #plt.xlabel(metric)
-
-        #plt.xlabel(metric)
-        #plt.xlim(xlim)
-        #plt.ylabel(experiment.get_x_axis_name())
-        #plt.xticks(ticks=range(1, 1 + len(results_saver)), labels=results_saver.keys(), fontsize="small")
 
         plt.xticks(range(len(results_saver)), results_saver.keys())
-        #plt.xlim(xlim)
         if metric == "mean_absolute_error":
             plt.ylabel("mean absolute error")
         else:
@@ -495,7 +479,6 @@ def compare_performances(args_original, args_lists, result_directory, metric, na
         plt.yscale("log")
         plt.ylim((0.01, 26))
 
-        #ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         plt.legend()
         tikzplotlib.save(f"./visualization/compare_performances_{experiment.name}{name_suffix}-{metric}" + ("_best" if best else "") + ".tex", extra_axis_parameters=["ylabel style={align=center}"])
         plt.title("Results " + simulation_to_name(args_lists[0]["simulation"], args_lists[0]["simulator"], args_lists[0]["time_variant_thetas"][0]))

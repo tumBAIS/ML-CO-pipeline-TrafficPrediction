@@ -49,8 +49,6 @@ def visualize_network(network_file, start=None, no_start=None, color="blue", ax=
         net.links = net.links[net.links['link_id'].astype(str).str.startswith(start)]
     geo = net.as_geo()
     geo.plot(edgecolor=color, alpha=alpha, ax=ax)
-    #plt.title(f"{start} {no_start}")
-    #plt.show()
 
 
 def visualize_work_and_home(ax, work_x, work_y, home_x, home_y):

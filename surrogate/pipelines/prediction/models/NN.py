@@ -18,7 +18,7 @@ def create_ffn(hidden_units):
 class NN:
     def __init__(self, args):
         self.args = args
-        self.hidden_units = [100, 500, 100, 10, 5]  #[100, 100, 100, 100, 100]  #[100, 10, 5]#[100, 100, 100, 100, 100] [1000, 1000, 100, 100, 100]
+        self.hidden_units = [100, 500, 100, 10, 5]
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=args.learning_rate)
         self.loss = tf.keras.losses.MeanSquaredError()
         self.model = None

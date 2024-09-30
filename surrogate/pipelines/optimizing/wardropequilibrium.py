@@ -1,25 +1,14 @@
 import math
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from surrogate.pipelines.optimizing.helpers_multicommodity.run_wardropequilibrium import find_wardrop_equilibria
 from surrogate.pipelines.optimizing.multicommodityflow import get_multicommodity_flow_components, get_cost, get_timeexpaned_components
-from surrogate.pipelines.optimizing.successiveaverages import solve_added_shortest_path
 
 
 def get_travel_time(args, latency_function, y, instance):
     theta = latency_function.predict([instance])
     return theta[0] + theta[1] * y
 
-
-def check(args, latency_function, y, instance):
-    travel_time = get_travel_time(args, latency_function, y, instance)
-    y_old = solve_added_shortest_path(travel_time, instance).values
-    travel_time = get_travel_time(args, latency_function, y_old, instance)
-    y_new = solve_added_shortest_path(travel_time, instance).values
-    plt.plot(np.abs(y_old - y_new), label="diff")
-    plt.title("Check")
-    plt.show()
 
 
 def check_solution(y, edge_flow, aggregated_flow, objective_value, nodes, arcs, inflow, cost, commodities, latency):
@@ -80,6 +69,5 @@ def optimize(args, thetas, instance, latency_function, verbose=False):
 
     if verbose:
         check_solution(y, solution, aggregated_flow, objective_value, nodes, arcs, inflow, cost, commodities, latency)
-        check(args, latency_function, y.values, instance)
 
     return np.array(y)

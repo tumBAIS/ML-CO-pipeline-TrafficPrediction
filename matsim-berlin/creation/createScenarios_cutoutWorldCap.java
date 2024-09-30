@@ -76,7 +76,6 @@ public class createScenarios_cutoutWorldCap {
         // Qsim
         QSimConfigGroup qsim_conf = conf.qsim();
         double original_capacity_factor = qsim_conf.getFlowCapFactor();
-        //double original_capacity_factor = Double.parseDouble(conf.getParam("qsim", "flowCapacityFactor"));
         double new_capacity_factor = original_capacity_factor * ((0.1 * percentage_new) / percentage_original);
         qsim_conf.setFlowCapFactor(new_capacity_factor);
         qsim_conf.setStorageCapFactor(new_capacity_factor);
@@ -107,7 +106,6 @@ public class createScenarios_cutoutWorldCap {
         // Adapt the capacity of highways to normal streets
         for (Link link : network.getLinks().values()) {
             double link_cap = link.getCapacity();
-            //System.out.println(link_cap);
             if (link_cap > 1000) {
                 link.setCapacity(1000);
             }

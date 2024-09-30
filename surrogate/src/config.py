@@ -59,8 +59,6 @@ parser.add_argument("--feature", type=str, default="''")
 
 
 # OPTIMIZATION
-#parser.add_argument("--time_expanded_solution", type=int, choices=[0, 1], default=0)
-#parser.add_argument("--trip_individual_solution", type=int, choices=[0, 1], default=0)
 parser.add_argument("--time_variant_theta", type=int, choices=[0, 1], default=0)
 parser.add_argument("--trip_individual_theta", type=int, choices=[0, 1], default=0)
 parser.add_argument("--capacity_individual_theta", type=int, choices=[0, 1], default=0)

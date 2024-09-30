@@ -120,7 +120,7 @@ public class createScenarios_sparseWorld {
         for (int i = 0; i < innner_street_links_list.size(); i++) {
             Link link = innner_street_links_list.get(i);
             boolean keep = false;
-            if (link.getNumberOfLanes() > 1) {   //1 -> 6800
+            if (link.getNumberOfLanes() > 1) {
                 keep = true;
             }
             if (!keep) {

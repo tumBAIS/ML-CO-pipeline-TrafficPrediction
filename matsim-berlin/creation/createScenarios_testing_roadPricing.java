@@ -120,8 +120,6 @@ public class createScenarios_testing_roadPricing {
             RoadPricingUtils.addLinkSpecificCost(roadPricingScheme, short_link_inter3_end.getId(), 0.0, 108000.0, 10);
 
 
-            //RoadPricingUtils.createAndAddGeneralCost(roadPricingScheme, 0.0, 1080000.0, 10000000);  // endTime in seconds
-
             RoadPricingWriterXMLv1 roadPricingWriterXMLv1 = new RoadPricingWriterXMLv1(roadPricingScheme);
             roadPricingWriterXMLv1.writeFile("scenarios/testing/" + scenario_name + "/tolling_scheme.xml");
 

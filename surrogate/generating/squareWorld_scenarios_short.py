@@ -136,8 +136,6 @@ def save_random_scenario(args, graph, population, minimum_start, maximum_end):
                    "go_to_work": population.go_to_work,
                    "go_to_home": population.go_to_home,
                    "o_d_pairs": population.o_d_pairs}
-                    #"commodities": np.arange(len(population.o_d_pairs))}
-                #"o_d_person_ids": population.o_d_person_ids}
 
     scenario.update(graph)
     scenario["minimum_start"] = minimum_start

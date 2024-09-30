@@ -76,7 +76,6 @@ public class createScenarios_cutoutWorldSpeed {
         // Qsim
         QSimConfigGroup qsim_conf = conf.qsim();
         double original_capacity_factor = qsim_conf.getFlowCapFactor();
-        //double original_capacity_factor = Double.parseDouble(conf.getParam("qsim", "flowCapacityFactor"));
         double new_capacity_factor = original_capacity_factor * (percentage_new / percentage_original);
         qsim_conf.setFlowCapFactor(new_capacity_factor);
         qsim_conf.setStorageCapFactor(new_capacity_factor);

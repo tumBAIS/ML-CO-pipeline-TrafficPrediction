@@ -23,7 +23,7 @@ class Solution:
     def initialize_solution_scheme(self, instance):
         assert isinstance(instance, dict)
         time_step_length = math.ceil((instance["maximum_end"]-instance["minimum_start"]) / self.args.num_discrete_time_steps)
-        puffer_time = 0 #(instance["maximum_end"]-instance["minimum_start"]) * 0.2
+        puffer_time = 0
         self.time_steps = np.arange(start=0, stop=instance["maximum_end"]-instance["minimum_start"] + puffer_time, step=time_step_length)
         self.solution_scheme_time = np.arange(start=instance["minimum_start"], stop=instance["maximum_end"] + puffer_time, step=time_step_length)
         self.solution_scheme_commodities = instance["commodities"]

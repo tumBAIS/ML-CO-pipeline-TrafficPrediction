@@ -2,7 +2,7 @@
 
 # start from system_response_approximation: bash runnables/cluster/master.sh
 
-RUNNING_CLUSTER="LRZ" # BAIS
+RUNNING_CLUSTER="LRZ"
 
 
 ACTION="training"

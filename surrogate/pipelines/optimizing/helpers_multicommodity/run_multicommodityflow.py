@@ -3,9 +3,9 @@ import gurobipy as gp
 import numpy as np
 import scipy
 from gurobipy import GRB
-import multiprocessing as mp
-import matplotlib.pyplot as plt
 
+
+# Code bases on Gurobi example https://www.gurobi.com/documentation/current/examples/netflow_py.html
 
 def run_conventional_model(commodities, arcs, nodes, cost, inflow, lb=0.0, ub=float('inf')):
     time_start_gurobi_model = time.time()

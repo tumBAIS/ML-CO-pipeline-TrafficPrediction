@@ -21,5 +21,4 @@ def load_json(file_path):
 
 def read_in_scenario(args):
     scenario = load_json(f'../matsim-berlin/scenarios/{args.simulation}/{get_scenario_acronym(args)}/scenario.json')
-    #scenario = load_json(args.scenario_path + "/scenario.json")
     return scenario

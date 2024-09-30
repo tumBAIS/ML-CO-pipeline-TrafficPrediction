@@ -87,7 +87,6 @@ class Graph:
     def draw(self, x=None, y=None, ax=None, weights_label="", cmap=plt.cm.hot_r, vmin=None, vmax=None, colormap=False, fig=None, name="", args=None):
         g_nx = self.get_nx()
         nodePos = {node.node_id: [node.x, node.y] for _, node in self.nodes.items()}
-        #cmap = plt.cm.viridis #plt.cm.Greys # plt.cm.viridis
         if vmin is None or vmax is None:
             edge_vmin = min([link.weight for _, link in self.links.items()])
             edge_vmax = max([link.weight for _, link in self.links.items()])
@@ -97,14 +96,12 @@ class Graph:
         print(f"VMIN: {edge_vmin} | VMAX: {edge_vmax}")
         nx.draw_networkx_edges(g_nx, nodePos, edgelist=[(link.from_node, link.to_node) for _, link in self.links.items()], node_size=30,
                                edge_color=[link.weight for _, link in self.links.items()], edge_cmap=cmap,
-                               edge_vmin=edge_vmin, edge_vmax=edge_vmax, width=2, ax=ax, arrows=False)  #, arrows=False, ax=ax
+                               edge_vmin=edge_vmin, edge_vmax=edge_vmax, width=2, ax=ax, arrows=False)
         plt.xlim((min(np.array(list(nodePos.values()))[:, 0]), max(np.array(list(nodePos.values()))[:, 0])))
         plt.ylim((min(np.array(list(nodePos.values()))[:, 1]), max(np.array(list(nodePos.values()))[:, 1])))
-        # TODO They changed the edge order
-        # TODO alternatively we could use: https://github.com/matsim-vsp/matsim-python-tools/blob/master/matsim/Network.py
         if weights_label is not None and colormap:
             axes = fig.add_axes([1.05, 0.15, 0.05, 0.7])
-            fig.colorbar(plt.cm.ScalarMappable(norm=matplotlib.colors.Normalize(vmin=edge_vmin, vmax=edge_vmax), cmap=cmap), cax=axes) # label=weights_label
+            fig.colorbar(plt.cm.ScalarMappable(norm=matplotlib.colors.Normalize(vmin=edge_vmin, vmax=edge_vmax), cmap=cmap), cax=axes)
         if x and y:
             plt.scatter(x[0], y[0], c="red")
             plt.scatter(x[1], y[1], c="blue")
@@ -120,7 +117,7 @@ class Graph:
 
     def get_link_b(self, origin, destination):
         relevant_links = []
-        for link_id, link in self.links.items():   # Caution: it is a digraph: we need to return the link with the smallest weight
+        for link_id, link in self.links.items():
             if link.from_node == origin and link.to_node == destination:
                 relevant_links.append(link)
         if len(relevant_links) > 0:
@@ -175,7 +172,6 @@ def test_run_on_usefulness(args, write_table=False):
 
 def update_args(args):
     print(f"INFO:: Number of CPUs in system before setting CPU_COUNT: {mp.cpu_count()}")
-    #os.environ["CPU_COUNT"] = str(len(os.sched_getaffinity(0)))
     os.environ["CPU_COUNT"] = str(args.num_cpus)
     print(f"INFO:: Number of CPUs in system: {mp.cpu_count()}")
     print(f"INFO:: Number of CPUs available to process: {len(os.sched_getaffinity(0))}")
@@ -207,7 +203,7 @@ def update_args(args):
 
     # set time limit
     args.max_time = datetime.timedelta(hours=args.max_time.hour, minutes=args.max_time.minute, seconds=args.max_time.second)
-    args.max_training_time = args.max_time #- datetime.timedelta(hours=1)
+    args.max_training_time = args.max_time
     if args.max_training_time.total_seconds() < 0:
         raise Exception("There is too few training time assigned to training.")
 
