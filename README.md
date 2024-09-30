@@ -5,11 +5,11 @@ This repository comprises the code to learn a Combinatorial Optimization Augment
 This method is proposed in:
 > ...
 
-This repository contains all relevant scripts and data sets to reproduce the results from the paper.
-To run the code for reproducing the results we assume using *slurm*, and require a Gurobi license.
-We used Gurobi version 10.0.0.
-We used Python version 3.8.10.
-We run the code on a Linux system.
+This repository contains all relevant scripts and data sets to reproduce the results from the paper. 
+To run the code for reproducing the results we assume using *slurm*, and require a Gurobi license. 
+We used Gurobi version 10.0.0. 
+We used Python version 3.8.10. 
+We run the code on a Linux system. 
 
 The structure of this repository is as follows:  
 *./matsim-berlin:* Multi Agent Transport Simulation to simulate oracle scenarios  
@@ -53,4 +53,4 @@ bash runnables/cluster/master.sh
    - `input_data.py` to visualize the scenarios
    - `output_data.py` to visualize the traffic flow
 
-Please note that the benchmark names in the paper were updated: multicommodityflow / MCFP->CL, wardropequilibria / WE -> PL, wardropequilibriaRegularized / WE-reg -> ER
+Please note that the benchmark names in the paper were updated: multicommodityflow / MCFP -> CL, wardropequilibria / WE -> PL, wardropequilibriaRegularized / WE-reg -> ER
