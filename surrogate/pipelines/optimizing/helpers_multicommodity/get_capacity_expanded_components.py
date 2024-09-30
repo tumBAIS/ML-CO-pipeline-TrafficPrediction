@@ -2,29 +2,14 @@ import copy
 import numpy as np
 import pandas as pd
 import math
-#from surrogate.pipelines.prediction.models.NN import NN
-
 
 def load_capacities(args, training_instances):
     if args.learning == "structured" and args.co_optimizer == "multicommodityflow":
         if isinstance(args.capacity_multiplicator, tuple) and args.capacity_multiplicator[0] == "supervised":
             raise Exception("Not implemented")
-            """print("Load model architecture and weights from supervised learning")
-            args_supervised = copy.deepcopy(args)
-            args_supervised.learning = "supervised"
-            args_supervised.capacity_multiplicator = 0
-            model = NN(args_supervised)
-            model.load_model()
-            for training_instance in training_instances:
-                solution_representation = training_instance["solution_representation"]
-                capacity = model.predict([training_instance])
-                capacity = solution_representation.load_y(capacity)
-                training_instance["capacity_prediction"] = capacity"""
         else:
             for training_instance in training_instances:
                 solution_representation = training_instance["solution_representation"]
-                # INFO: Here, one could just use solution_representation.load_y(instance). However, we assume to make MCP-edges independent from theta.
-                # So here, the implementation is also theta independent.
                 capacity = pd.DataFrame({"target": 1, "link_id": training_instance["solution_link"]})
                 capacity["time"] = [solution_representation.solution_scheme_time[(np.abs(t - solution_representation.solution_scheme_time)).argmin()] for t in training_instance["solution_time"]]
                 capacity = capacity.set_index(["time", "link_id"])
@@ -61,10 +46,8 @@ def set_capacity(args, arcs, instance):
     capacity_prediction = instance["capacity_prediction"]
     arcs = arcs.merge(capacity_prediction, how="left", on=capacity_prediction.index.names)
     arcs["target"] = arcs["target"].fillna(0)
-    # Note: if there is a time expansion, some edges have inf capacity, which we have to keep
     new_capacity = arcs["target"].values.astype(float)
     new_capacity[arcs["capacity"] == np.inf] = np.inf
-    # Note: when some edges hava a capacity of 0, we can not increase these capacities. Therefore, the allowed min value is 1
     if capacity_multiplicator > 0:
         new_capacity[new_capacity == 0] = 1
     new_capacity[new_capacity != np.inf] = np.ceil(((capacity_multiplicator / 100) * new_capacity[new_capacity != np.inf]) + new_capacity[new_capacity != np.inf])   # Increase in percentage

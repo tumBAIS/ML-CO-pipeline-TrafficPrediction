@@ -11,11 +11,6 @@ def get_multicommodity_flow_components(instance, thetas):
     nodes, arcs, commodities, inflow = from_instance_to_multicommodityflow_components(instance)
     cost = instance["solution_representation"].load_y(thetas)
     cost = pd.DataFrame(cost)
-
-    ### HERE WE CAN ENABLE THE EXAMPLE GRAPH
-    # nodes, arcs, commodities, inflow, cost = get_example()
-    ###
-
     return nodes, arcs, commodities, inflow, cost
 
 

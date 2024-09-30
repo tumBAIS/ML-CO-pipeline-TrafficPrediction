@@ -39,7 +39,6 @@ def plot_time_expanded_graph(arcs, nodes, T, weights=None):
     plt.show()
 
 
-#def get_time_expanded_graph(nodes, edges, capacity, cost, inflow, edge_times, commodities, T):
 def get_time_expanded_graph(nodes, arcs, commodities, inflow, instance):
 
     """
@@ -51,17 +50,8 @@ def get_time_expanded_graph(nodes, arcs, commodities, inflow, instance):
     edge_flow_times = np.array(instance["link_length"]) / np.array(instance["link_freespeed"])
     edge_flow_times_rounded = [(np.abs(t - instance["solution_representation"].time_steps)).argmin() for t in edge_flow_times]  # discretize edge_flow_times to T
 
-    # round to smaller value
-    """edge_flow_times_rounded = []
-    for edge_flow_time in edge_flow_times:
-        a = edge_flow_time - instance["solution_representation"].time_steps
-        a[a > 0] = -np.inf
-        edge_flow_times_rounded.append(a.argmax())
-        #edge_flow_times_rounded.append(1)"""
-
     edge_flow_times_rounded = [flow_time if flow_time > 0 else 1 for flow_time in edge_flow_times_rounded]  # We need to ignore that a link costs t=0
     edge_flow_times_rounded = pd.DataFrame({"link_id": instance["links_id"], "edge_flow_times_rounded": edge_flow_times_rounded})
-    #arcs["edge_flow_times_rounded"] = edge_flow_times_rounded
     arcs = arcs.merge(edge_flow_times_rounded, how="left", on="link_id")
 
 
@@ -113,20 +103,6 @@ def get_time_expanded_graph(nodes, arcs, commodities, inflow, instance):
     new_inflow = new_inflow.merge(new_nodes, how="left", on="node_id")
     new_inflow = new_inflow.merge(inflow, how="left", on=["commodity", "original_node_id"])
 
-    # New:
-    # 1. We only keep ending nodes
-    # 2. We set the starting node to the time dependent starting node:
-    #new_inflow.loc[~((new_inflow["inflow_value"] < 0) & (new_inflow["time_idx"] == max(new_inflow["time_idx"]))), "inflow_value"] = 0
-    """new_inflow["inflow_value"] = 0
-    max_time_idx = max(new_inflow["time_idx"])
-    for com in commodities.to_dict("records"):
-        new_inflow.loc[(new_inflow["commodity"] == com["commodity"]) &
-                       (new_inflow["original_node_id"] == com["destination"]) &
-                       (new_inflow["time_idx"] == max_time_idx), "inflow_value"] = -1
-        new_inflow.loc[(new_inflow["commodity"] == com["commodity"]) &
-                       (new_inflow["original_node_id"] == com["origin"]) &
-                       (new_inflow["time_idx"] == com["time_idx"]), "inflow_value"] += 1"""
-
     copy_commodities = copy.deepcopy(commodities)
     new_inflow = new_inflow.merge(copy_commodities[["commodity", "origin", "supply", "time_idx"]], how="left", left_on=["commodity", "original_node_id", "time_idx"], right_on=["commodity", "origin", "time_idx"])
     copy_commodities["time_idx"] = max(new_inflow["time_idx"])
@@ -134,8 +110,5 @@ def get_time_expanded_graph(nodes, arcs, commodities, inflow, instance):
     new_inflow = new_inflow.fillna(0)
     new_inflow["inflow_value"] = new_inflow["supply"] + new_inflow["demand"]
     new_inflow = new_inflow.drop(columns=["origin", "supply", "destination", "demand"])
-
-    # We only accept an inflow, if it is either value > 0 and t == 0, or value < 0 and t==max(t)
-    #new_inflow.loc[~(((new_inflow["inflow_value"] > 0) & (new_inflow["time_idx"] == 0)) | ((new_inflow["inflow_value"] < 0) & (new_inflow["time_idx"] == max(new_inflow["time_idx"])))), "inflow_value"] = 0
 
     return new_nodes, new_edges, new_inflow

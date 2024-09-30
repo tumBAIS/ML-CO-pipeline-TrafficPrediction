@@ -35,15 +35,12 @@ def check_solution(y, edge_flow, aggregated_flow, objective_value, nodes, arcs, 
             sum_outgoing = edge_flow.groupby(["i", "commodity"]).sum().loc[(n["node_id"], c["commodity"]), "value"]
             inflow_ij = inflow[(inflow["node_id"] == n["node_id"]) & (inflow["commodity"] == c["commodity"])].iloc[0, -1]
             assert math.isclose(sum_outgoing - sum_ingoing, inflow_ij, abs_tol=1e-09)
-            #except:
-            #    print("Hier")
     # Check objective value
     objective_value_post = np.sum(latency["latency_intercept"].values * aggregated_flow + (1/2) * latency["latency_x"].values * aggregated_flow**2)
     assert math.isclose(objective_value_post, objective_value, abs_tol=1e-09)
 
 
 def get_latency_parameters(arcs, cost):
-    # arcs and thetas might have different length as arcs contain arcs connecting equal nodes over time, which are not considered in theta
     latency_parameters = arcs.merge(cost, how="left", on=cost.index.names)
     if isinstance(cost["target"].values[0], tuple):
         latency_parameters["target"] = latency_parameters["target"].apply(lambda x: (0, 0) if x is np.nan else x)

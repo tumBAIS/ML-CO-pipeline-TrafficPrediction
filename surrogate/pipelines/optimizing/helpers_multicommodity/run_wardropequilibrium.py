@@ -58,8 +58,6 @@ def find_wardrop_equilibria(args, nodes, arcs, inflow, cost, commodities, latenc
         m_matrix.Params.Threads = 1
         m_matrix.setParam("OutputFlag", 0)
         m_matrix.Params.Seed = 1
-        #m_matrix.Params.PoolSolutions = 10
-        #m_matrix.Params.PoolSearchMode = 2
 
         if args.obtimization_gap != "default":
             m_matrix.setParam('MIPGap', args.obtimization_gap)
@@ -83,26 +81,6 @@ def find_wardrop_equilibria(args, nodes, arcs, inflow, cost, commodities, latenc
 
         # Compute optimal solution
         time_start_optimization = time.time()
-        #m_matrix.update()
-        #m_matrix.read("model.sol")
-        #m_matrix.setParam('MIPGap', 0.5)
-        #m_matrix.Params.timeLimit = 500
-        #m_matrix.update()
-
-        """value = []
-        for var in m_matrix.getVars():
-            # Get variable name
-            #print({var.Start})
-            value.append(var.Start)
-            var.LB = var.Start
-            var.UB = var.Start"""
-        #is_mip = m_matrix.getAttr("IsMIP")
-
-        # Print the result
-        #if is_mip:
-        #    print("The model is a MIP (Mixed-Integer Programming) or MILP (Mixed-Integer Linear Programming).")
-        #else:
-        #    print("The model is an IP (Integer Programming).")
 
         m_matrix.optimize()
         time_end_optimization = time.time()
@@ -113,11 +91,8 @@ def find_wardrop_equilibria(args, nodes, arcs, inflow, cost, commodities, latenc
             print(f"SOLUTION HAS OBJECTIVE VALUE: {obj_original.getValue()}, used Threads: {m_matrix.Params.Threads}")
             cost["value"] = matrix_flow.X
             aggregated_flow = aggregated_matrix_flow.X
-            #m_matrix.write(f"model.sol")
             objective_value = obj_original.getValue()
         else:
             raise Exception(f"The CO-layer did not find a solution, with exit code: {m_matrix.Status}")
-        #del env
-        #del m_matrix
 
     return cost.reset_index(), aggregated_flow, objective_value
