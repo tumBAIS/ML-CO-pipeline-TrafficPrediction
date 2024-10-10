@@ -3,7 +3,7 @@
 This repository comprises the code to learn a Combinatorial Optimization Augmented Machine Learning (COAML) pipeline that predicts traffic flow from contextual information.
 
 This method is proposed in:
-> ...
+> Kai Jungel, Dario Paccagnan, Axel Parmentier, and Maximilian Schiffer. WardropNet: Traffic Flow Predictions via Equilibrium-Augmented Learning. arXiv preprint: [arxiv:2410.06656](https://arxiv.org/abs/2410.06656), 2024.
 
 This repository contains all relevant scripts and data sets to reproduce the results from the paper.  
 To run the code for reproducing the results we assume using *slurm*, and require a Gurobi license.  
